@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
+const path = require('path');
 
 
 mongoose.connect(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.9w0bb5b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
@@ -25,6 +26,8 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json())
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceRoutes);
 
